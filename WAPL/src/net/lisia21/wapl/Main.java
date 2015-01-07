@@ -78,12 +78,12 @@ public class Main extends Activity implements OnClickListener {
 	@Override
 	public void onResume() {
 		super.onResume();
-		
+
 		String xmlUrl = "http://203.247.166.59/" + phoneNumber + "/data.xml";
 
 		task = new GetXMLTask(this);
 		task.execute(xmlUrl);
-		
+
 		startService(new Intent(this, UpdateService.class));
 
 	}
@@ -203,6 +203,11 @@ public class Main extends Activity implements OnClickListener {
 						s += "   - moisture :  "
 								+ ((Node) moistureList.item(0)).getNodeValue()
 								+ "\n";
+
+						if (Integer.parseInt(moistureList.item(0)
+								.getNodeValue()) < 300) {
+							s = serialList.item(0).getNodeValue() + " NEEDS WATER :(";
+						}
 
 						arrayList.add(s);
 					}
