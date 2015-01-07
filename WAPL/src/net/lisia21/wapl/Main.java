@@ -71,8 +71,6 @@ public class Main extends Activity implements OnClickListener {
 		Intent getIntent = getIntent();
 		phoneNumber = getIntent.getStringExtra("phoneNumber");
 
-		
-
 		add.setOnClickListener(this);
 		remove.setOnClickListener(this);
 	}
@@ -81,23 +79,26 @@ public class Main extends Activity implements OnClickListener {
 	public void onResume() {
 		super.onResume();
 		
-		String xmlUrl = "http://203.247.166.59/" + phoneNumber
-				+ "/data.xml";
+		String xmlUrl = "http://203.247.166.59/" + phoneNumber + "/data.xml";
 
 		task = new GetXMLTask(this);
 		task.execute(xmlUrl);
+		
+		startService(new Intent(this, UpdateService.class));
 
 	}
 
 	public void onClick(View view) {
 		switch (view.getId()) {
 		case R.id.add:
+			stopService(new Intent(this, UpdateService.class));
 			Intent addIntent = new Intent(getApplicationContext(), Add.class);
 			addIntent.putExtra("phoneNumber", phoneNumber);
 			startActivity(addIntent);
 			break;
 
 		case R.id.remove:
+			stopService(new Intent(this, UpdateService.class));
 			Intent removeIntent = new Intent(getApplicationContext(),
 					Remove.class);
 			removeIntent.putExtra("phoneNumber", phoneNumber);
@@ -133,7 +134,6 @@ public class Main extends Activity implements OnClickListener {
 				Log.w("Connection", "ConnectionError");
 			}
 
-			
 			return doc;
 		}
 
