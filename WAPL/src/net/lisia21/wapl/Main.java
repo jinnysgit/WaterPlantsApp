@@ -206,7 +206,7 @@ public class Main extends Activity implements OnClickListener {
 
 						if (Integer.parseInt(moistureList.item(0)
 								.getNodeValue()) < 300) {
-							s = serialList.item(0).getNodeValue() + " NEEDS WATER :(";
+							s = serialList.item(0).getNodeValue() + " NEEDS WATER :( ";
 						}
 
 						arrayList.add(s);
